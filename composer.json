@@ -1,0 +1,12 @@
+{
+  "require": {
+    "easyphp/easyphp": "dev-master"
+  },
+  "repositories": [
+    {
+      "type": "path",
+      "url": "../framework"
+    }
+  ]
+
+}
