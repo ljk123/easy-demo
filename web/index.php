@@ -3,11 +3,8 @@ namespace easy;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-// 执行HTTP应用并响应
-$http = (new App())->http;
-
-$response = $http->run();
-
-$response->send();
-
-$http->end($response);
+$app=new App();
+//swoole
+//$app->set('request',$request);
+//$app->set('response',$response);
+$app->run();
