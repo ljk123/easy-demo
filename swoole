@@ -1,0 +1,15 @@
+#!/usr/bin/env php
+<?php
+namespace easy;
+
+require __DIR__ . '/vendor/autoload.php';
+
+
+$http = new \Swoole\Http\Server("127.0.0.1", 9599);
+$http->on('request', function ($request, $response) {
+    Request::getInstance('swoole')->bind($request);
+    Response::getInstance('swoole')->bind($response);
+    $app=new App('','swoole');
+    $app->run();
+});
+$http->start();
