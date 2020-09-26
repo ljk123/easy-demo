@@ -4,12 +4,14 @@
 namespace app\controller\v1;
 
 
+use easy\App;
+use easy\Container;
 use easy\Exception;
 use easy\Log;
 
 class Hello
 {
-    public function index()
+    public function index(App $app)
     {
         return [
             'msg'=>'hello easy-php',
