@@ -7,8 +7,8 @@ require __DIR__ . '/vendor/autoload.php';
 
 $http = new \Swoole\Http\Server("127.0.0.1", 9599);
 $http->on('request', function ($request, $response) {
-    Request::getInstance('swoole')->bind($request);
-    Response::getInstance('swoole')->bind($response);
+    Request::getInstance()->bind($request);
+    Response::getInstance()->bind($response);
     $app=new App('','swoole');
     $app->run();
 });
