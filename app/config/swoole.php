@@ -1,5 +1,15 @@
 <?php
 return[
+    'server'=>[
+        'reactor_num'   => 1,     // 设置启动的 Reactor 线程数。【默认值：CPU 核数】
+        'worker_num'    => 2,     // 设置启动的 Worker 进程数。【默认值：CPU 核数】
+        'max_request'   => 0,      //设置 worker 进程的最大任务数。【默认值：0 即不会退出进程】
+//        'backlog'       => 128,   // 设置 Listen 队列长度
+        'dispatch_mode' => 2,   //数据包分发策略。【默认值：2】 //https://wiki.swoole.com/#/server/setting?id=dispatch_mode
+//        'daemonize'     => 1,  //守护进程化【默认值：0】
+//        'log_level'     =>   SWOOLE_LOG_WARNING
+
+    ],
     'http'=>[
         'host'=>'127.0.0.1',
         'port'=>9599,
