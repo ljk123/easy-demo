@@ -15,8 +15,13 @@
       name: 'easyphp',
       repo: 'ljk123/easy',
       loadSidebar: true,
+      search: 'auto', // 默认值
+      plugins: [
+        EditOnGithubPlugin.create('https://github.com/ljk123/easy-demo/tree/doc', null, '编辑文档')
+      ]
     }
   </script>
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-edit-on-github"></script>
 </body>
 </html>
