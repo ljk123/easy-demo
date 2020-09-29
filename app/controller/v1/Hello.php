@@ -13,6 +13,8 @@ class Hello
 {
     public function index(App $app)
     {
+//        var_dump($app->cache->set('aaa',121212));
+//        var_dump($app->cache->get('aaa'));
         return [
             'msg'=>'hello easy-php',
         ];

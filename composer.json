@@ -14,5 +14,8 @@
     "psr-4": {
       "app\\": "app"
     }
+  },
+  "require-dev": {
+    "swoole/ide-helper": "@dev"
   }
 }
