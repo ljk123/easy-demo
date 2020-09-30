@@ -9,8 +9,8 @@ use easy\utils\Runtime;
 
 class Hello
 {
-    public function index(){
-        return 'hello index';
+    public function index(App $app){
+        return ['hello index'];
     }
     public function debugTest(App $app){
 
