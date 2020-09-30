@@ -8,6 +8,6 @@ return [
     'password'          => 'ljk2fxf',//同上
     // 端口
     'port'          => 6379,//同上
-
+    //链接超时时间
     'timeout'       => 5,
 ];
