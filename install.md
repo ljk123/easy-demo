@@ -1,6 +1,6 @@
 
 ## 安装
->  composer create-project xxx your-project-name 还没发布包 先不写
+>  composer create-project easyphp/easy your-project-name 
 
 ## 环境要求
 
