@@ -13,7 +13,7 @@ use easy\Validate;
 
 class Hello
 {
-    public function index(App $app,User $user)
+    public function index(App $app, User $user)
     {
 //        $v = new Validate();
 //        $v->setAliases([
@@ -27,10 +27,12 @@ class Hello
 //        var_dump($user->where(['id'=>1])->find());
 //        var_dump($user->getError());
         return [
-            'msg'=>'hello easy-php',
+            'msg' => 'hello easy-php',
         ];
     }
-    public function exception(){
+
+    public function exception()
+    {
         throw new Exception('exception test');
     }
 }
