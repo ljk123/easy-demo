@@ -1,6 +1,7 @@
 {
   "name": "easyphp/easy",
   "type": "project",
+  "license": "MIT",
   "require": {
     "easyphp/easyphp": "dev-master"
   },
