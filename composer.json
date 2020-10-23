@@ -3,8 +3,14 @@
   "type": "project",
   "license": "MIT",
   "require": {
-    "easyphp/easyphp": "^1.0"
+    "easyphp/easyphp": "dev-master"
   },
+  "repositories": [
+    {
+      "type": "path",
+      "url": "../composer/framework"
+    }
+  ],
   "autoload": {
     "psr-4": {
       "app\\": "app"
