@@ -68,6 +68,108 @@ Container::getInstance()->get('db')->table("user")->alias('u')->join('group', 'g
 //生成的sql为 SELECT * FROM `easy_user` u LEFT JOIN `easy_group` g on g.id=u.group_id  WHERE 1
 ```
 ## field
-哎明天继续写
+`field`用于指定查询字段，不指定默认查询`*`
+```php
+Container::getInstance()->get('db')->table("user")->field('username,pwd')->select();
+//生成sql为 SELECT username,pwd FROM `easy_user`   WHERE 1
+```
+## where
+`where`用于组装查询条件，`可多次调用`，简单支持数组组装`=`逻辑，最外层逻辑只能是`and`其他需求需手写sql  
+>这样的设计理由
+>- 最外层逻辑只能是`AND`对走索引查询友好
+> - 数组只支持`=`逻辑减少记忆难度（以前经常看到有人问怎么组合`between`,`like`啥的问题，为什么要组合，直接写不香吗），其他逻辑可以通过多次调用实现，详情见下例
+
+!>注意，非数组组合语句，必须使用`参数绑定`的方式传入变量
+```php
+<?php
+
+namespace app\controller;
+
+use easy\Db;
+
+class Index
+{
+
+    public function index(Db $db)
+    {
+        $db->table("user")->where(['username' => 'zhangsan'])->select();
+        //生成语句为SELECT * FROM `easy_user`   WHERE username='zhangsan'
+        
+        $db->table("user")->where('username=:username', ['username' => 'zhangsan'])->select();
+        //生成语句为SELECT * FROM `easy_user`   WHERE username='zhangsan'
+        
+        $db->table("user")->where('username like :username', ['username' => 'zhang%'])->select();
+        //生成语句为SELECT * FROM `easy_user`   WHERE username like 'zhang%'
+        
+        $db->table("user")->where('create_time between :create_time0 and :create_time1', ['create_time0' => 1601049600, 'create_time1' => 1601136000])->select();
+        //生成语句为SELECT * FROM `easy_user`   WHERE create_time between 1601049600 and 1601136000
+        
+        //多次调用where 中间关系为AND
+        $db->table("user")
+            ->where('username like :username', ['username' => 'zhang%'])
+            ->where('create_time between :create_time0 and :create_time1', ['create_time0' => 1601049600, 'create_time1' => 1601136000])
+            ->select();
+        //生成语句为SELECT * FROM `easy_user`   WHERE username like 'zhang%' AND create_time between 1601049600 and 1601136000
+
+        //可以同一字段多次约束
+        $db->table("user")
+            ->where('username like :username0', ['username0' => 'zhang%'])
+            ->where('username != :username1', ['username1' => 'admin'])//这里需要注意区分两次的username0、username1 否则后面变量会覆盖前面的 导致参数个数不一致
+            ->select();
+        //生成语句为SELECT * FROM `easy_user`   WHERE username like 'zhang%' AND create_time between 1601049600 and 1601136000
+        return;
+    }
+}
+```
+## limit
+`limit`用于组合`LIMIT`语法，即指定查询和操作的数量  
+接受两个参数`offset`,`size`；其中`offset`可以省略，即为0
+```php
+Container::getInstance()->get('db')->table("user")->limit(10)->select();//省略offset
+//生成的sql为 SELECT * FROM `easy_user`   WHERE 1    LIMIT 0,10
+Container::getInstance()->get('db')->table("user")->limit(10,20)->select();
+//生成的sql为 SELECT * FROM `easy_user`   WHERE 1    LIMIT 10,20
+```
+## page
+`page`用于方便组合`limit ` 
+接受两个参数`page`,`size`;`size`默认为`20`
+```php
+Container::getInstance()->get('db')->table("user")->page(4)->select();//省略size
+//生成的sql为 SELECT * FROM `easy_user`   WHERE 1    LIMIT 60,20
+Container::getInstance()->get('db')->table("user")->page(4,15)->select();
+//生成的sql为 SELECT * FROM `easy_user`   WHERE 1    LIMIT 45,15
+```
+## order
+`order`用于组合`ORDER BY`语法 ，即排序  原样传入
+```php
+Container::getInstance()->get('db')->table("user")->order('create_time DESC')->select();
+//生成的sql为 SELECT * FROM `easy_user`   WHERE 1   ORDER BY create_time DESC 
+```
+## group
+`group`用于组合`GROUP BY`语法 ，即分组  原样传入
+```php
+Container::getInstance()->get('db')->table("user")->group('group_id')->select();
+//SELECT * FROM `easy_user`   WHERE 1 GROUP BY group_id
+```
+## having
+`having`用于组合`HAVING`语法 
+```php
+Container::getInstance()->get('db')->table("user")->group('group_id')->having('count(id) > 1')->select();
+//生成的sql为 SELECT * FROM `easy_user`   WHERE 1 GROUP BY group_id HAVING count(id) > 1
+```
+# 查询语句
+?> 啊啊啊啊啊 写不动了 下次再继续了
+## find
+## select
+## value
+## column
+
+# 插入语句
+## add
+## addAll
+
+# 删除语句
+# delete
+
 # 模型
 
