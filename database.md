@@ -185,7 +185,7 @@ Container::getInstance()->get('db')->table("user")->group('group_id')->having('c
 
 # 插入语句
 
-?> todo 每天写一点点
+?> todo 每天写一点点 有项目要做了 试试用这个框架 以后再写
 
 ## add
 ## addAll
