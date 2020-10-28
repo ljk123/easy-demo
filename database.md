@@ -158,13 +158,35 @@ Container::getInstance()->get('db')->table("user")->group('group_id')->having('c
 //生成的sql为 SELECT * FROM `easy_user`   WHERE 1 GROUP BY group_id HAVING count(id) > 1
 ```
 # 查询语句
-?> 啊啊啊啊啊 写不动了 下次再继续了
-## find
+根据前面链式操作组合规则生成查询语句  
+
+?> 所有查询方法最终都是调用的`select()`方法
 ## select
+生成sql并调用`Db::query()`方法,返回二维数组
+```php
+    $db->table('user')->select();//返回[['username'=>'admin','pwd'=>'xxxxxxxx'',...],['username'=>'admin2','pwd'=>'xxxxxxxx2'',...],...]
+```
+## find
+自动给`sql`加`LIMIT 1`并返回一维数组
+```php
+    $db->table('user')->find();//返回['username'=>'admin','pwd'=>'xxxxxxxx'',...]
+```
 ## value
+查询某一个字段
+```php
+    $db->table('user')->where(['id'=>1])->value('username');//返回 admin
+```
+
 ## column
+查询某一列字段
+```php
+    $db->table('user')->where(['id'=>1])->column('username');//返回 ['admin','admin2',...]
+```
 
 # 插入语句
+
+?> todo 每天写一点点
+
 ## add
 ## addAll
 
